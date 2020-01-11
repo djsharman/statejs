@@ -1,0 +1,34 @@
+import OpenDoorState from "./OpenDoorState";
+//>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
+//###START_CUSTOMCODE1
+
+//###END_CUSTOMCODE1
+export class Door {
+  //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
+  //###START_CUSTOMCODE2
+
+  //###END_CUSTOMCODE2
+
+  constructor(state) {
+    this.state = undefined;
+    this.setState(state);
+  }
+
+  open() {
+    this.setState(this.state.open());
+  }
+
+  isOpenDoorState() {
+    return this.state instanceof OpenDoorState;
+  }
+
+  setState(state) {
+    if (this.state !== undefined) {
+      this.state.onExitState();
+    }
+
+    this.state = state;
+    this.state.onEnterState();
+  }
+}
+export default Door;
