@@ -13,6 +13,10 @@ class ExistingFileContent {
       content = fs.readFileSync(output_filename, "utf8");
     }
 
+    this.parseContent(content);
+  }
+
+  parseContent(content) {
     this.section2 = this.getAutocode(content, "2");
     this.section1 = this.getAutocode(content, "1");
   }
@@ -42,13 +46,16 @@ class ExistingFileContent {
 
   /**
    * Check if a method exists in the main code section
-   * @param {string} method_name
+   * @param {string} methodName
    */
-  methodExists(method_name) {
-    let matches = this.section2.match(`/function[\\s]+[&]?${method_name}\\(/i`);
+  methodExists(methodName) {
+    // prettier-ignore
+    let regex = new RegExp("(" + methodName + ")\(.*\)( ){0,18}\{", "g");
+
+    let match = this.section2.match(regex);
     let ret = false;
-    if (Array.isArray(matches)) {
-      ret = typeof matches[1] === "undefined";
+    if (match !== null) {
+      ret = true;
     }
     return ret;
   }

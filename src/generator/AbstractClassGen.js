@@ -1,5 +1,5 @@
 import ejs from "ejs";
-import ExistingFileContent from "./ExistingFileContent";
+import ExistingFileContent from "./file-parsers/ExistingFileContent";
 import fs from "fs";
 
 class AbstractClassGen {
@@ -23,8 +23,8 @@ class AbstractClassGen {
       className: dataOrg.className,
       section1: section1,
       section2: section2,
-      onEnterState: true,
-      onExitState: true,
+      onEnterState: !existingFileContent.methodExists("onEnterState"),
+      onExitState: !existingFileContent.methodExists("onExitState"),
       operations: operations
     };
 

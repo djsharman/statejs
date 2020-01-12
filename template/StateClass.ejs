@@ -1,5 +1,5 @@
 import AbstractDoorState from "./<%=abstractName%>";
-<% for (let transition in transitions) {  %>import <%= transitions[transition] %> from "./<%= transitions[transition] %>";
+<% for (let transition in allTransitions) {  %>import <%= transitions[transition] %> from "./<%= transitions[transition] %>";
 <% }; %>
 //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
 //###START_CUSTOMCODE1
@@ -16,20 +16,19 @@ class <%= className %> extends <%=abstractName%> {
   }
 
   <% if (onEnterState) { %>
-    onEnterState() {
-      
-    }
-    <% }
-    if (onExitState) { %>
-    onExitState() {
-      
-    }
-    <% } 
-    for (let transition in transitions) {  
-        %>
-    <%= transition %>() {
-      return new <%= transitions[transition] %>();
-    }
-    <% }; %>
+  onEnterState() {
+    
+  }
+  <% }
+  if (onExitState) { %>
+  onExitState() {
+    
+  }
+  <% } 
+  for (let transition in transitions) {  %>
+  <%= transition %>() {
+    return new <%= transitions[transition] %>();
+  }
+  <% }; %>
 }
 export default OpenDoorState;

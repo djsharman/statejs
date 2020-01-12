@@ -1,27 +1,37 @@
-import OpenDoorState from "./OpenDoorState";
+<% for (let state in allStates) {  %>import <%= allStates[state] %> from "./<%= allStates[state] %>";
+<% }; %>
 //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
 //###START_CUSTOMCODE1
-
+<%= section1 %>
 //###END_CUSTOMCODE1
-export class Door {
+export class <%= className %> {
   //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
   //###START_CUSTOMCODE2
-
+  <%= section2 %>
   //###END_CUSTOMCODE2
-
+  
+  <% if (constructor) { %>
   constructor(state) {
     this.state = undefined;
     this.setState(state);
   }
+  <% }
 
-  open() {
-    this.setState(this.state.open());
+  // output functions for changing the SM's state
+  for (let transition in transitions) { %>
+  <%= transition %>() {
+    this.setState(this.state.<%= transition %>());
   }
+  <% };
 
-  isOpenDoorState() {
-    return this.state instanceof OpenDoorState;
+  // output functions for checking the SM's state
+  for (let query in queries) { %>
+  <%= query %>() {
+      return this.state instanceof <%= queries[query] %>;
   }
-
+  <% }; 
+    
+  if (setState) { %>
   setState(state) {
     if (this.state !== undefined) {
       this.state.onExitState();
@@ -30,5 +40,6 @@ export class Door {
     this.state = state;
     this.state.onEnterState();
   }
+  <% }; %>
 }
 export default Door;

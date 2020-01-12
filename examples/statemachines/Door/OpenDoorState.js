@@ -16,17 +16,17 @@ class OpenDoorState extends AbstractDoorState {
   }
 
   
-    onEnterState() {
-      
-    }
+  onEnterState() {
     
-    onExitState() {
-      
-    }
+  }
+  
+  onExitState() {
     
-    close() {
-      return new ClosedDoorState();
-    }
-    
+  }
+  
+  close() {
+    return new ClosedDoorState();
+  }
+  
 }
 export default OpenDoorState;

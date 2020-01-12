@@ -3,9 +3,11 @@ import DefParser from "../definition/DefParser";
 import path from "path";
 import AbstractClassGen from "./AbstractClassGen";
 import StateClassGen from "./StateClassGen";
+import SMClassGen from "./SMClassGen";
 
 class SMGenerator {
   create(defFileName, templateDir, defsDir, baseDir) {
+    // the basic class name of the SM
     const className = this.getSMClassName(defFileName);
 
     console.log(`Processing: ${className}`);
@@ -27,9 +29,11 @@ class SMGenerator {
       sm_implements: DefParse.getSMImplements()
     };
 
+    // Process the single abstract state class, this is the base class for all states
     const abstractClassGen = new AbstractClassGen();
     abstractClassGen.generate(templateDir, targetDir, className, data);
 
+    // Process all states, one class per state
     for (let stateName in data.specification.states) {
       const state = data.specification.states[stateName];
       const stateClassGen = new StateClassGen();
@@ -41,6 +45,10 @@ class SMGenerator {
         state
       );
     }
+
+    // Process the primary class of the SM
+    const smClassGen = new SMClassGen();
+    smClassGen.generate(templateDir, targetDir, className, data);
   }
 
   getDefFilesArray(defFile, baseDir, defsDir) {

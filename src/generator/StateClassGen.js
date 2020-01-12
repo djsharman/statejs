@@ -1,5 +1,5 @@
 import ejs from "ejs";
-import ExistingFileContent from "./ExistingFileContent";
+import ExistingFileContent from "./file-parsers/ExistingFileContent";
 import fs from "fs";
 
 class StateClassGen {
@@ -26,6 +26,7 @@ class StateClassGen {
       onEnterState: true,
       onExitState: true,
       transitions: transitions,
+      allTransitions: stateOrg.transitions, // all transitions needed for the include statement
       abstractName: abstractName
     };
 
