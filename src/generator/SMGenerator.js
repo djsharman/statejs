@@ -2,6 +2,7 @@ import fs from "fs";
 import DefParser from "../definition/DefParser";
 import path from "path";
 import AbstractClassGen from "./AbstractClassGen";
+import StateClassGen from "./StateClassGen";
 
 class SMGenerator {
   create(defFileName, templateDir, defsDir, baseDir) {
@@ -28,6 +29,18 @@ class SMGenerator {
 
     const abstractClassGen = new AbstractClassGen();
     abstractClassGen.generate(templateDir, targetDir, className, data);
+
+    for (let stateName in data.specification.states) {
+      const state = data.specification.states[stateName];
+      const stateClassGen = new StateClassGen();
+      stateClassGen.generate(
+        templateDir,
+        targetDir,
+        stateName,
+        className,
+        state
+      );
+    }
   }
 
   getDefFilesArray(defFile, baseDir, defsDir) {
