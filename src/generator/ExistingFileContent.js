@@ -1,3 +1,4 @@
+import fs from "fs";
 class ExistingFileContent {
   constructor() {
     // variables to store code sections from existing files
@@ -8,7 +9,7 @@ class ExistingFileContent {
   procExistingContent(output_filename) {
     let content = "";
 
-    if (!fs.existsSync(output_filename)) {
+    if (fs.existsSync(output_filename)) {
       content = fs.readFileSync(output_filename, "utf8");
     }
 
@@ -17,10 +18,10 @@ class ExistingFileContent {
   }
 
   getAutocode(text, section) {
-    ret = "";
-    var start = "//###START_CUSTOMCODE" + section;
-    var end = "//###END_CUSTOMCODE" + section;
-    var pos = this.findStr(text, start);
+    let ret = "";
+    let start = "//###START_CUSTOMCODE" + section;
+    let end = "//###END_CUSTOMCODE" + section;
+    let pos = this.findStr(text, start);
 
     if (pos !== -1) {
       text = text.substr(pos + 22);
@@ -45,7 +46,10 @@ class ExistingFileContent {
    */
   methodExists(method_name) {
     let matches = this.section2.match(`/function[\\s]+[&]?${method_name}\\(/i`);
-    const ret = typeof matches[1] === "undefined";
+    let ret = false;
+    if (Array.isArray(matches)) {
+      ret = typeof matches[1] === "undefined";
+    }
     return ret;
   }
 

@@ -21,7 +21,7 @@ try {
 
   defFiles.forEach(defFileName => {
     let generator = new SMGenerator();
-    generator.create(defFileName, templateDir, defsDir);
+    generator.create(defFileName, templateDir, defsDir, baseDir);
   });
 } catch (e) {
   console.log(e);

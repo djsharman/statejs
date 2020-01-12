@@ -1,11 +1,10 @@
 import fs from "fs";
 import DefParser from "../definition/DefParser";
 import path from "path";
-import ExistingFileContent from "./ExistingFileContent";
-import ejs from "ejs";
+import AbstractClassGen from "./AbstractClassGen";
 
 class SMGenerator {
-  create(defFileName, templateDir, defsDir) {
+  create(defFileName, templateDir, defsDir, baseDir) {
     const className = this.getSMClassName(defFileName);
 
     console.log(`Processing: ${className}`);
@@ -16,7 +15,7 @@ class SMGenerator {
     const defXML = this.loadDefFile(defFileWithPath);
 
     const DefParse = new DefParser(defXML);
-    const targetDir = DefParse.getTargetDir();
+    const targetDir = baseDir + "/" + DefParse.getTargetDir() + "/" + className;
 
     this.checkDirExists(targetDir);
 
@@ -27,21 +26,8 @@ class SMGenerator {
       sm_implements: DefParse.getSMImplements()
     };
 
-    this.generateAbstract(templateDir, className, data);
-  }
-
-  generateAbstract(templateDir, className, dataOrg) {
-    const templateFile = `${templateDir}/AbstractStateClass.ejs`;
-
-    let data = Object.assign(
-      { onEnterState: true, onExitState: true },
-      dataOrg
-    );
-
-    const output = ejs.renderFile(templateFile, data, null, function(err, str) {
-      console.log(err);
-      console.log(str);
-    });
+    const abstractClassGen = new AbstractClassGen();
+    abstractClassGen.generate(templateDir, targetDir, className, data);
   }
 
   getDefFilesArray(defFile, baseDir, defsDir) {
@@ -50,7 +36,7 @@ class SMGenerator {
 
   checkDirExists(targetDir) {
     if (!fs.existsSync(targetDir)) {
-      fs.mkdirSync(targetDir);
+      fs.mkdirSync(targetDir, { recursive: true });
     }
   }
 

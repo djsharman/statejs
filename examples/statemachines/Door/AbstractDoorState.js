@@ -2,33 +2,42 @@ import IllegalStateTransitionError from "./IllegalStateTransitionError";
 
 //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
 //###START_CUSTOMCODE1
-<%= section1 %>
+
 //###END_CUSTOMCODE1
-class Abstract<%= className %>State {
+class AbstractDoorState {
 //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
 //###START_CUSTOMCODE2
-<%= section2 %>
+
 //###END_CUSTOMCODE2
 
   setParentStateMachine(SM) {
     this.SM = SM;
   }
-  <% if (onEnterState) { %>
+  
   onEnterState() {
     
   }
-  <% }
-  if (onExitState) { %>
+  
   onExitState() {
     
   }
-  <% } 
-  for (let key in operations) {  
-      %>
-  <%= operations[key] %>() {
+  
+  open() {
     throw new IllegalStateTransitionError();
   }
-  <% }; %>
+  
+  close() {
+    throw new IllegalStateTransitionError();
+  }
+  
+  lock() {
+    throw new IllegalStateTransitionError();
+  }
+  
+  unlock() {
+    throw new IllegalStateTransitionError();
+  }
+  
 
 }
 export default AbstractDoorState;
