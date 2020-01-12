@@ -1,13 +1,12 @@
 {
     "version": "0.2.0",
-    "configurations": [
-        {
+    "configurations": [{
             "name": "Launch",
             "type": "node",
             "request": "launch",
             "program": "${workspaceRoot}/src/index.js",
             "stopOnEntry": false,
-            "args": ["${workspaceRoot}/examples/"],
+            "args": ["${workspaceRoot}/examples", "${workspaceRoot}/template"],
             "cwd": "${workspaceRoot}",
             "preLaunchTask": null,
             "runtimeExecutable": null,

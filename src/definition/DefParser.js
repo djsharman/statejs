@@ -108,6 +108,10 @@ class DefParser {
     const smExtends = this._getConfValue("sm_extends");
     return smExtends;
   }
+
+  getSpecification() {
+    return this.specification;
+  }
 }
 
 export default DefParser;
