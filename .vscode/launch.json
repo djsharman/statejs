@@ -1,10 +1,28 @@
 {
     "version": "0.2.0",
     "configurations": [{
-            "name": "Launch",
+            "name": "Launch Generate",
             "type": "node",
             "request": "launch",
-            "program": "${workspaceRoot}/src/index.js",
+            "program": "${workspaceRoot}/src/generate.js",
+            "stopOnEntry": false,
+            "args": ["${workspaceRoot}/examples", "${workspaceRoot}/template"],
+            "cwd": "${workspaceRoot}",
+            "preLaunchTask": null,
+            "runtimeExecutable": null,
+            "runtimeArgs": ["--nolazy", "--require", "babel-register"],
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "console": "internalConsole",
+            "sourceMaps": true,
+            "outFiles": []
+        },
+        {
+            "name": "Launch Visualise",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceRoot}/src/visualise.js",
             "stopOnEntry": false,
             "args": ["${workspaceRoot}/examples", "${workspaceRoot}/template"],
             "cwd": "${workspaceRoot}",
@@ -45,9 +63,7 @@
             "name": "Jest All",
             "program": "${workspaceFolder}/node_modules/.bin/jest",
             "args": ["--runInBand"],
-            "runtimeArgs": [
-                "--nolazy"
-            ],
+            "runtimeArgs": ["--nolazy"],
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
             "disableOptimisticBPs": true,
