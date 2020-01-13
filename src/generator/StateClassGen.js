@@ -2,6 +2,9 @@ import ejs from "ejs";
 import ExistingFileContent from "./file-parsers/ExistingFileContent";
 import fs from "fs";
 
+/**
+ * Creates the state classes
+ */
 class StateClassGen {
   generate(templateDir, targetDir, stateName, smClassName, stateOrg) {
     const templateFile = `${templateDir}/StateClass.ejs`;
@@ -23,8 +26,9 @@ class StateClassGen {
       className: stateName,
       section1: section1,
       section2: section2,
-      onEnterState: true,
-      onExitState: true,
+      onEnterState: !existingFileContent.methodExists("onEnterState"),
+      onExitState: !existingFileContent.methodExists("onExitState"),
+      constructor: !existingFileContent.methodExists("constructor"),
       transitions: transitions,
       allTransitions: stateOrg.transitions, // all transitions needed for the include statement
       abstractName: abstractName

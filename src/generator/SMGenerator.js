@@ -4,7 +4,15 @@ import path from "path";
 import AbstractClassGen from "./AbstractClassGen";
 import StateClassGen from "./StateClassGen";
 import SMClassGen from "./SMClassGen";
+import IllegalStateTransitionGen from "./IllegalStateTransitionGen";
 
+/**
+ * Generates a state machine based on an XML configuration
+ *
+ * Parses the state machine XML configuration
+ * Creates the output directory if required
+ * Generates the main class, state classes, abstract class and illegal state transition class
+ */
 class SMGenerator {
   create(defFileName, templateDir, defsDir, baseDir) {
     // the basic class name of the SM
@@ -49,6 +57,10 @@ class SMGenerator {
     // Process the primary class of the SM
     const smClassGen = new SMClassGen();
     smClassGen.generate(templateDir, targetDir, className, data);
+
+    // Process the primary class of the SM
+    const illegalStateTransitionGen = new IllegalStateTransitionGen();
+    illegalStateTransitionGen.generate(templateDir, targetDir, className, data);
   }
 
   getDefFilesArray(defFile, baseDir, defsDir) {

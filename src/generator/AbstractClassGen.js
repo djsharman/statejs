@@ -2,6 +2,9 @@ import ejs from "ejs";
 import ExistingFileContent from "./file-parsers/ExistingFileContent";
 import fs from "fs";
 
+/**
+ * Creates the abstract class used by all of the state classes
+ */
 class AbstractClassGen {
   generate(templateDir, targetDir, className, dataOrg) {
     const templateFile = `${templateDir}/AbstractStateClass.ejs`;

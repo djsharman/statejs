@@ -41,6 +41,8 @@ class ExistingFileContent {
         ret = text;
       }
     }
+    // trim the resultant strings otherwise we can add whitespace in the templates
+    ret = ret.trim();
     return ret;
   }
 

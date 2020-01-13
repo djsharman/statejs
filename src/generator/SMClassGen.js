@@ -2,6 +2,9 @@ import ejs from "ejs";
 import ExistingFileContent from "./file-parsers/ExistingFileContent";
 import fs from "fs";
 
+/**
+ * Creates the main class of the SM
+ */
 class SMClassGen {
   generate(templateDir, targetDir, className, dataOrg) {
     const templateFile = `${templateDir}/SMClass.ejs`;
@@ -32,6 +35,7 @@ class SMClassGen {
       section2: section2,
       onEnterState: !existingFileContent.methodExists("onEnterState"),
       onExitState: !existingFileContent.methodExists("onExitState"),
+      constructor: !existingFileContent.methodExists("constructor"),
       transitions: transitions,
       queries: queries,
       allStates: allStates,
