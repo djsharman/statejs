@@ -50,7 +50,7 @@ class SMVisualiser {
         console.log(`stderr: ${stderr}`);
         return;
       }
-      console.log(`results: ${stdout}`);
+      console.log(`${stdout}`);
     });
   }
 

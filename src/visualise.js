@@ -19,7 +19,7 @@ try {
     generator.create(defFileName, defsDir, diagramLoc);
   });
 
-  console.log("Generation complete");
+  console.log("Visualisation complete");
 } catch (e) {
   console.log(e);
 }
