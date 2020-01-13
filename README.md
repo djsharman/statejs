@@ -1,2 +1,2 @@
 # statejs
-Elegantly implemented finite state state machine generator for Javascript
+A finite state state machine generator for Javascript
