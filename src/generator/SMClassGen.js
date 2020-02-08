@@ -55,7 +55,10 @@ class SMClassGen {
   processStates(states) {
     let requireStates = [];
     for (let state in states) {
-      requireStates.push(state);
+      // just in case de duplicate the states
+      if (requireStates.indexOf(state) === -1) {
+        requireStates.push(state);
+      }
     }
     return requireStates;
   }

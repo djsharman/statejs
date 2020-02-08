@@ -51,10 +51,14 @@ class ExistingFileContent {
    * @param {string} methodName
    */
   methodExists(methodName) {
+    //(isEndState)\([a-zA-Z0-9_-]*\)( ){0,7}\{
     // prettier-ignore
-    let regex = new RegExp("(" + methodName + ")\(.*\)( ){0,18}\{", "g");
+    let regex = new RegExp("( )+(" + methodName + ")\(.*\)( ){0,7}\{", "g");
 
-    let match = this.section2.match(regex);
+    // work around for weird regex in JS
+    let test = " " + this.section2;
+
+    let match = test.match(regex);
     let ret = false;
     if (match !== null) {
       ret = true;

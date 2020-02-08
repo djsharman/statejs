@@ -22,6 +22,8 @@ class StateClassGen {
       stateOrg.transitions
     );
 
+    const allTransitions = this.dedupTransitions(stateOrg.transitions);
+
     let data = {
       className: stateName,
       section1: section1,
@@ -30,7 +32,7 @@ class StateClassGen {
       onExitState: !existingFileContent.methodExists("onExitState"),
       constructor: !existingFileContent.methodExists("constructor"),
       transitions: transitions,
-      allTransitions: stateOrg.transitions, // all transitions needed for the include statement
+      allTransitions: allTransitions, // all transitions needed for the include statement
       abstractName: abstractName
     };
 
@@ -42,6 +44,22 @@ class StateClassGen {
         fs.writeFileSync(targetFileName, str, "utf8");
       }
     });
+  }
+
+  /**
+   * Sometime we have transitions leading to the same state.
+   * We need to remove the duplicates otherwise we will end
+   * up with multiple duplicate require statements in the output file
+   */
+  dedupTransitions(transitions) {
+    let allTrans = [];
+    for (let transition in transitions) {
+      let curTrans = transitions[transition];
+      if (allTrans.indexOf(curTrans) === -1) {
+        allTrans.push(curTrans);
+      }
+    }
+    return allTrans;
   }
 
   processExistingTransitions(existingFileContent, transitions) {
