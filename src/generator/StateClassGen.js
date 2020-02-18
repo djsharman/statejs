@@ -22,7 +22,10 @@ class StateClassGen {
       stateOrg.transitions
     );
 
-    const allTransitions = this.dedupTransitions(stateOrg.transitions);
+    const allTransitions = this.dedupTransitions(
+      stateOrg.transitions,
+      stateName
+    );
 
     let data = {
       className: stateName,
@@ -51,10 +54,14 @@ class StateClassGen {
    * We need to remove the duplicates otherwise we will end
    * up with multiple duplicate require statements in the output file
    */
-  dedupTransitions(transitions) {
+  dedupTransitions(transitions, stateName) {
     let allTrans = [];
     for (let transition in transitions) {
       let curTrans = transitions[transition];
+      // don't include the current transition name incase a state loops back on itself
+      if (curTrans == stateName) continue;
+
+      // ignore duplicate transition
       if (allTrans.indexOf(curTrans) === -1) {
         allTrans.push(curTrans);
       }
