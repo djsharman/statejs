@@ -53,7 +53,7 @@ class ExistingFileContent {
   methodExists(methodName) {
     //(isEndState)\([a-zA-Z0-9_-]*\)( ){0,7}\{
     // prettier-ignore
-    let regex = new RegExp("( )+(" + methodName + ")\(.*\)( ){0,7}\{", "g");
+    let regex = new RegExp("( )+(" + methodName + ")\(.*\)( )\{", "g");
 
     // work around for weird regex in JS
     let test = " " + this.section2;
@@ -61,6 +61,7 @@ class ExistingFileContent {
     let match = test.match(regex);
     let ret = false;
     if (match !== null) {
+      console.log("match found: " + methodName);
       ret = true;
     }
     return ret;

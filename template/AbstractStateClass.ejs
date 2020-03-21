@@ -2,12 +2,12 @@ import IllegalStateTransitionError from "./IllegalStateTransitionError";
 
 //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
 //###START_CUSTOMCODE1
-<%= section1 %>
+<%- section1 %>
 //###END_CUSTOMCODE1
-class Abstract<%= className %>State {
+class Abstract<%- className %>State {
   //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
   //###START_CUSTOMCODE2
-  <%= section2 %>
+  <%- section2 %>
   //###END_CUSTOMCODE2
 
   setParentStateMachine(SM) {
@@ -25,7 +25,7 @@ class Abstract<%= className %>State {
   <% } 
   for (let key in operations) {  
       %>
-  <%= operations[key] %>() {
+  <%- operations[key] %>() {
     throw new IllegalStateTransitionError();
   }
   <% }; %>

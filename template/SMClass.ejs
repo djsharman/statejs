@@ -1,13 +1,13 @@
-<% for (let state in allStates) {  %>import <%= allStates[state] %> from "./<%= allStates[state] %>";
+<% for (let state in allStates) {  %>import <%- allStates[state] %> from "./<%- allStates[state] %>";
 <% }; %>
 //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
 //###START_CUSTOMCODE1
-<%= section1 %>
+<%- section1 %>
 //###END_CUSTOMCODE1
-export class <%= className %> {
+export class <%- className %> {
   //>>>> don't change the CUSTOM CODE comments, if you do generation will overwrite your code >>>>
   //###START_CUSTOMCODE2
-  <%= section2 %>
+  <%- section2 %>
   //###END_CUSTOMCODE2
   
   <% if (constructor) { %>
@@ -19,15 +19,15 @@ export class <%= className %> {
 
   // output functions for changing the SM's state
   for (let transition in transitions) { %>
-  <%= transition %>() {
-    this.setState(this.state.<%= transition %>());
+  <%- transition %>() {
+    this.setState(this.state.<%- transition %>());
   }
   <% };
 
   // output functions for checking the SM's state
   for (let query in queries) { %>
-  <%= query %>() {
-      return this.state instanceof <%= queries[query] %>;
+  <%- query %>() {
+      return this.state instanceof <%- queries[query] %>;
   }
   <% }; 
     
