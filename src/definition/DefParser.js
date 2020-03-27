@@ -71,6 +71,7 @@ class DefParser {
       const to = transition.attributes.to;
       const operation = transition.attributes.operation;
 
+      console.log(`Parsing transition from: ${from} -> to: ${to}`);
       states[from]["transitions"][operation] = to;
 
       // store the correct verb for the operation in question
