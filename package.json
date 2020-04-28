@@ -1,6 +1,6 @@
 {
 	"name": "statejs-fsm",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"description": "Elegantly implemented finite state machine generator for JavaScript",
 	"main": "index.js",
 	"directories": {
