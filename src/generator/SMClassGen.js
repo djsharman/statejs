@@ -19,15 +19,9 @@ class SMClassGen {
 
     const allStates = this.processStates(dataOrg.specification.states);
 
-    const transitions = this.processExistingTransitions(
-      existingFileContent,
-      dataOrg.specification.operations
-    );
+    const transitions = this.processExistingTransitions(existingFileContent, dataOrg.specification.operations);
 
-    const queries = this.processExistingQueries(
-      existingFileContent,
-      dataOrg.specification.states
-    );
+    const queries = this.processExistingQueries(existingFileContent, dataOrg.specification.states);
 
     let data = {
       className: className,
@@ -37,12 +31,13 @@ class SMClassGen {
       onExitState: !existingFileContent.methodExists("onExitState"),
       constructor: !existingFileContent.methodExists("constructor"),
       transitions: transitions,
+      allTransitions: dataOrg.specification.operations,
       queries: queries,
       allStates: allStates,
-      setState: !existingFileContent.methodExists("setState")
+      setState: !existingFileContent.methodExists("setState"),
     };
 
-    ejs.renderFile(templateFile, data, null, function(err, str) {
+    ejs.renderFile(templateFile, data, null, function (err, str) {
       if (err) {
         console.log(err);
       }
