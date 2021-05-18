@@ -34,7 +34,7 @@ class DefParser {
     this.specification = {
       operations: operations,
       queries: queries,
-      states: states
+      states: states,
     };
   }
 
@@ -47,11 +47,12 @@ class DefParser {
   _parseStates(states, queries) {
     // prepare states with
     const XMLstates = this.xmlSpec.find("states");
-    XMLstates.find("state").each(state => {
+    XMLstates.find("state").each((state) => {
       const stateName = state.attributes.name;
       states[stateName] = {
         transitions: [],
-        query: "is" + stateName
+        critical: [],
+        query: "is" + stateName,
       };
 
       queries.push(stateName);
@@ -66,19 +67,23 @@ class DefParser {
   _parseTransitions(states, operations) {
     //
     const transitions = this.xmlSpec.find("transitions");
-    transitions.find("transition").each(transition => {
+    transitions.find("transition").each((transition) => {
       const from = transition.attributes.from;
       const to = transition.attributes.to;
       const operation = transition.attributes.operation;
+      const critical = transition.attributes.critical;
 
       console.log(`Parsing transition from: ${from} -> to: ${to}`);
       states[from]["transitions"][operation] = to;
+      if (typeof critical !== "undefined") {
+        states[from]["critical"][operation] = critical;
+      }
 
       // store the correct verb for the operation in question
       const capFirstOperation = capitalize(operation);
       operations[operation] = {
         allowed: "can" + capFirstOperation,
-        disallowed: "cannot" + capFirstOperation
+        disallowed: "cannot" + capFirstOperation,
       };
     });
   }

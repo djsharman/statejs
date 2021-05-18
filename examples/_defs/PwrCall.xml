@@ -22,41 +22,41 @@
   <state name="EndState"/>
  </states>
  <transitions>
-  <transition from="StartUpState" to="WaitForUserRegState" operation="reqRegState"/>
+  <transition from="StartUpState" to="WaitForUserRegState" operation="reqRegState" critical="red"/>
   <transition from="StartUpState"  to="EndState" operation="cancel"/>
   <transition from="StartUpState"  to="WPCompleteState" operation="wpComplete"/>
   <transition from="StartUpState"  to="TechnicalProblemState" operation="techProblem"/>
   
-  <transition from="WaitForUserRegState" to="WaitForUserParkedState" operation="userRegistered"/>
+  <transition from="WaitForUserRegState" to="WaitForUserParkedState" operation="userRegistered" critical="red"/>
   <transition from="WaitForUserRegState" to="UserRegFailState" operation="userRegFailed"/>
   <transition from="WaitForUserRegState"  to="EndState" operation="cancel"/>
   <transition from="WaitForUserRegState"  to="TechnicalProblemState" operation="techProblem"/>
   
-  <transition from="WaitForUserParkedState"  to="UserParkedState" operation="userParked"/>
+  <transition from="WaitForUserParkedState"  to="UserParkedState" operation="userParked" critical="red"/>
   <transition from="WaitForUserParkedState"  to="UserParkFailState" operation="userParkFailed"/>
   <transition from="WaitForUserParkedState"  to="EndState" operation="cancel"/>
   <transition from="WaitForUserParkedState"  to="TechnicalProblemState" operation="techProblem"/>
   
-  <transition from="UserParkedState"  to="NextCallState" operation="startCalling"/>
+  <transition from="UserParkedState"  to="NextCallState" operation="startCalling" critical="red"/>
   <transition from="UserParkedState"  to="EndState" operation="cancel"/>
   <transition from="UserParkedState"  to="TechnicalProblemState" operation="techProblem"/>
   
-  <transition from="NextCallState"  to="InCallState" operation="showCall"/>
+  <transition from="NextCallState"  to="InCallState" operation="showCall" critical="red"/>
   <transition from="NextCallState"  to="WPCompleteState" operation="wpComplete"/>
   <transition from="NextCallState"  to="TechnicalProblemState" operation="techProblem"/>
   
   
   <transition from="WPCompleteState"  to="EndState" operation="stopCalling"/>
   
-  <transition from="InCallState"  to="AgentCallHangupState" operation="agentHangup"/>
+  <transition from="InCallState"  to="AgentCallHangupState" operation="agentHangup" critical="red"/>
   <transition from="InCallState"  to="CustCallHangupState" operation="customerHangup"/>
   <transition from="InCallState"  to="TechnicalProblemState" operation="techProblem"/>
   <!--<transition from="InCallState"  to="NextCallState" operation="forceNextCall"/> -->
 
   <transition from="AgentCallHangupState"  to="TechnicalProblemState" operation="techProblem"/>
-  <transition from="AgentCallHangupState"  to="EndState" operation="stopCalling"/>
-  <transition from="AgentCallHangupState"  to="NextCallState" operation="goNextCall"/>
-  <transition from="AgentCallHangupState"  to="InCallState" operation="redialCustomer"/>
+  <transition from="AgentCallHangupState"  to="EndState" operation="stopCalling" critical="red"/>
+  <transition from="AgentCallHangupState"  to="NextCallState" operation="goNextCall" critical="orange"/>
+  <transition from="AgentCallHangupState"  to="InCallState" operation="redialCustomer" critical="orange"/>
   
   <transition from="CustCallHangupState"  to="TechnicalProblemState" operation="techProblem"/>
   <transition from="CustCallHangupState"  to="EndState" operation="stopCalling"/>j

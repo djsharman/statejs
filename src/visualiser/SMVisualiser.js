@@ -73,9 +73,15 @@ class SMVisualiser {
       let data = states[state];
       let trans = data.transitions;
 
+      let color = "";
       for (var operation in trans) {
-        var to = trans[operation];
-        output += '"' + state + '" -> "' + to + '" [ color=blue, label = "' + operation + '"];\n';
+        if (typeof states[state].critical[operation] !== "undefined") {
+          color = states[state].critical[operation];
+        } else {
+          color = "blue";
+        }
+        const to = trans[operation];
+        output += '"' + state + '" -> "' + to + '" [ color=' + color + ', label = "' + operation + '"];\n';
       }
     }
 
