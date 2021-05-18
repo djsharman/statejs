@@ -2,6 +2,7 @@ import fs from "fs";
 import DefParser from "../definition/DefParser";
 import path from "path";
 import { exec } from "child_process";
+import denatureSpec from "./denatureSpec";
 
 /**
  * Generates a state machine based on an XML configuration
@@ -11,7 +12,7 @@ import { exec } from "child_process";
  * Generates the main class, state classes, abstract class and illegal state transition class
  */
 class SMVisualiser {
-  create(defFileName, defsDir, diagramLoc) {
+  create(defFileName, defsDir, diagramLoc, genDenatured) {
     // the basic class name of the SM
     const className = this.getSMClassName(defFileName);
     console.log(`Visualising: ${className}`);
@@ -25,7 +26,14 @@ class SMVisualiser {
     this.checkDirExists(diagramLoc);
 
     const spec = DefParse.getSpecification();
-    const states = spec.states;
+    let states = spec.states;
+
+    let denaturedFileName = "";
+
+    if (genDenatured == true) {
+      denaturedFileName = "_denatured";
+      states = denatureSpec(states);
+    }
 
     // get dot file output
     const output = this.getDotFileOutput(className, states);
@@ -35,7 +43,7 @@ class SMVisualiser {
     fs.writeFileSync(dotOutputFilename, output, "utf8");
 
     // convert to png
-    const pngOutputFilename = `${diagramLoc}/${className}.png`;
+    const pngOutputFilename = `${diagramLoc}/${className}${denaturedFileName}.png`;
     this.convertToPng(dotOutputFilename, pngOutputFilename);
   }
 
@@ -67,14 +75,7 @@ class SMVisualiser {
 
       for (var operation in trans) {
         var to = trans[operation];
-        output +=
-          '"' +
-          state +
-          '" -> "' +
-          to +
-          '" [ color=blue, label = "' +
-          operation +
-          '"];\n';
+        output += '"' + state + '" -> "' + to + '" [ color=blue, label = "' + operation + '"];\n';
       }
     }
 

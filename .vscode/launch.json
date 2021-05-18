@@ -24,7 +24,7 @@
             "request": "launch",
             "program": "${workspaceRoot}/src/visualise.js",
             "stopOnEntry": false,
-            "args": ["${workspaceRoot}/examples", "${workspaceRoot}/template"],
+            "args": ["${workspaceRoot}/examples"],
             "cwd": "${workspaceRoot}",
             "preLaunchTask": null,
             "runtimeExecutable": null,
@@ -36,6 +36,24 @@
             "sourceMaps": true,
             "outFiles": []
         },
+				{
+					"name": "Launch denatured visualise ",
+					"type": "node",
+					"request": "launch",
+					"program": "${workspaceRoot}/src/visualise.js",
+					"stopOnEntry": false,
+					"args": ["${workspaceRoot}/examples", "true"],
+					"cwd": "${workspaceRoot}",
+					"preLaunchTask": null,
+					"runtimeExecutable": null,
+					"runtimeArgs": ["--nolazy", "--require", "babel-register"],
+					"env": {
+							"NODE_ENV": "development"
+					},
+					"console": "internalConsole",
+					"sourceMaps": true,
+					"outFiles": []
+			},
         {
             "name": "Attach",
             "type": "node",
